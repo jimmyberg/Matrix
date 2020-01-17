@@ -1,5 +1,8 @@
 # Matrix
 Special code to solve square matrixies using Gaussian Elimination.
+
+This can be used to easily solve matricis manually for educational purposes.
+Autosolve is also possible if someone wishes to solve the equation automatically.
 # Output preview
 ```
            1           2           3|           5
@@ -35,7 +38,6 @@ compile and run using
 ```
 ./compileAndRun
 ```
-Make sure you have make and g++ installed.
 # Install Dependencies
 For linux users: 
 ```
