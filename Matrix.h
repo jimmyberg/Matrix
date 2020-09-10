@@ -1,6 +1,9 @@
 #ifndef _MATRIX_H_
 #define _MATRIX_H_
 #include <iostream>
+#include <cmath>
+
+// #define _DEBUG_MATRIX_AUTOSOLVE_
 
 /**
  * @brief      Class for square matrix with vector.
@@ -88,43 +91,69 @@ public:
 	 *             determinant accessible.
 	 */
 	void autoSolve(){
+		#ifdef _DEBUG_MATRIX_AUTOSOLVE_
+		print();
+		std::cout << '\n';
+		#endif
 		// Sort pivots. Results in less rounding errors.
 		for (unsigned int diagIndex = 0; diagIndex < size; ++diagIndex){
-			double currentMaxVal = abs(A[diagIndex][diagIndex]);
+			double currentMaxVal = std::abs(A[diagIndex][diagIndex]);
 			unsigned int currentMaxIndex = diagIndex;
 			// Look for larger values down of current diagonal value
 			for (unsigned int rowIndex = diagIndex+1; rowIndex < size; ++rowIndex){
-				double currentVal = abs(A[rowIndex][diagIndex]);
+				double currentVal = std::abs(A[rowIndex][diagIndex]);
 				if(currentVal > currentMaxVal){
 					currentMaxVal = currentVal;
 					currentMaxIndex = rowIndex;
 				}
 			}
 			// Conclude if swap is required.
+
 			if(currentMaxIndex != diagIndex){
 				swapRows(currentMaxIndex, diagIndex);
+				#ifdef _DEBUG_MATRIX_AUTOSOLVE_
+				std::cout << "Swaped row " << currentMaxIndex+1 << " and " << diagIndex+1 << '\n';
+				print();
+				std::cout << '\n';
+				#endif
 			}
 		}
 		// Now make matrix echelon
 		for (unsigned int diagIndex = 0; diagIndex < size; ++diagIndex){
 			for (unsigned int rowIndex = diagIndex+1; rowIndex < size; ++rowIndex){
-				rowAddRow(diagIndex, -A[rowIndex][diagIndex] / A[diagIndex][diagIndex], rowIndex);
+				double factor = -A[rowIndex][diagIndex] / A[diagIndex][diagIndex];
+				rowAddRow(diagIndex, factor, rowIndex);
 				// Should be zero, but subtracting floating points can have very
 				// small rounding errors. Thus we force it to be zero.
 				A[rowIndex][diagIndex] = 0;
+				#ifdef _DEBUG_MATRIX_AUTOSOLVE_
+				std::cout << "Add row " << diagIndex+1 << " to " << rowIndex+1 << " by factor " << factor << '\n';
+				print();
+				std::cout << '\n';
+				#endif
 			}
 		}
 
 		// Turn into unity matrix.
 		for (unsigned int diagIndex = size; diagIndex-- != 0;){
 			for (unsigned int rowIndex = diagIndex; rowIndex-- != 0;){
-				std::cout << rowIndex << std::endl;
-				rowAddRow(diagIndex, -A[rowIndex][diagIndex] / A[diagIndex][diagIndex], rowIndex);
+				double factor = -A[rowIndex][diagIndex] / A[diagIndex][diagIndex];
+				rowAddRow(diagIndex, factor, rowIndex);
 				// Should be zero, but subtracting floating points can have very
 				// small rounding errors. Thus we force it to be zero.
 				A[rowIndex][diagIndex] = 0;
+				#ifdef _DEBUG_MATRIX_AUTOSOLVE_
+				std::cout << "Add row " << diagIndex+1 << " to " << rowIndex+1 << " by factor " << factor << '\n';
+				print();
+				std::cout << '\n';
+				#endif
 			}
 			divideRow(diagIndex, A[diagIndex][diagIndex]);
+			#ifdef _DEBUG_MATRIX_AUTOSOLVE_
+			std::cout << "Normalized row " << diagIndex+1 << '\n';
+			print();
+			std::cout << '\n';
+			#endif
 		}
 
 	}
