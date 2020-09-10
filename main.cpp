@@ -1,5 +1,4 @@
 #include <iostream>
-#include "liniearGausian.h"
 #include "Matrix.h"
 using namespace std;
 
@@ -12,20 +11,10 @@ void transpose(double A[], size_t size){
 }
 
 int main(int argc, char** argv){
-	double A[100*100];
-	double B[100];
-	double AA[100][100];
-	A[3*0+0] = 1; A[3*0+1] = 2; A[3*0+2] = 3;
-	A[3*1+0] = 5; A[3*1+1] = 7; A[3*1+2] = 9;
-	A[3*2+0] = 2; A[3*2+1] = 1; A[3*2+2] = 6;
-
 	Matrix<3> mat;
 	mat.A[0][0] = 1; mat.A[0][1] = 2; mat.A[0][2] = 3;
 	mat.A[1][0] = 5; mat.A[1][1] = 7; mat.A[1][2] = 9;
 	mat.A[2][0] = 2; mat.A[2][1] = 1; mat.A[2][2] = 6;
-	B[0] = 5;
-	B[1] = 2;
-	B[2] = 3;
 	mat.B[0] = 5;
 	mat.B[1] = 2;
 	mat.B[2] = 3;
