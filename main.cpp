@@ -11,7 +11,7 @@ void transpose(double A[], size_t size){
 }
 
 int main(int argc, char** argv){
-	Matrix<3> mat;
+	Matrix mat(3);
 	mat.A[0][0] = 1; mat.A[0][1] = 2; mat.A[0][2] = 3;
 	mat.A[1][0] = 5; mat.A[1][1] = 7; mat.A[1][2] = 9;
 	mat.A[2][0] = 2; mat.A[2][1] = 1; mat.A[2][2] = 6;
@@ -20,7 +20,7 @@ int main(int argc, char** argv){
 	mat.B[2] = 3;
 	mat.resetDeterminantFactor();
 	while(1){
-		mat.print();
+		cout << mat << endl;
 		cout <<
 			"what to do?\n"
 			"[0] Row add\n"
