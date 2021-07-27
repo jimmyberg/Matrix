@@ -83,6 +83,7 @@ int main(int argc, char** argv){
 			}
 			case 4:
 				cout << "determinant = " << mat.determinant() << endl;
+				break;
 			case 5:
 				mat.autoSolve();
 		}
